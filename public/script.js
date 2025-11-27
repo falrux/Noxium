@@ -83,7 +83,7 @@ function typeWriter(element, text, speed = 100) {
 }
 
 setTimeout(() => {
-    typeWriter(document.getElementById('main-title'), 'Ro-Ternal', 150);
+    typeWriter(document.getElementById('main-title'), 'Noxium', 150);
 }, 500);
 
 const floatCard = document.getElementById('floating-card');
@@ -101,7 +101,7 @@ if (floatCard) {
 
     floatCard.innerHTML = `
         <img src="https://mdayspa.com/wp-content/uploads/2014/06/placeholder_image1.png"
-             alt="Ro-Ternal Screenshot Placeholder"
+             alt="Noxium Screenshot Placeholder"
              class="max-w-full max-h-80 object-contain rounded-lg block transition-transform duration-500">
     `;
 
