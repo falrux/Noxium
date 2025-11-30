@@ -100,28 +100,40 @@ installroblox() {
     
     if [ "$arch" == "arm64" ]; then
         step "Downloading Roblox..."
-        curl -L "https://setup.rbxcdn.com/mac/arm64/version-b43017492eb44083-RobloxPlayer.zip" -o "$tmp/RobloxPlayer.zip" 2>/dev/null
+        echo "downloading arm version"
+        curl -L "https://setup.rbxcdn.com/mac/arm64/version-b43017492eb44083-RobloxPlayer.zip" -o "$tmp/RobloxPlayer.zip" 2>/dev/null >/dev/null
+        echo "download done"
         echo
         ok "Completed"
     else
         step "Downloading Roblox..."
-        curl -L "https://setup.rbxcdn.com/mac/version-b43017492eb44083-RobloxPlayer.zip" -o "$tmp/RobloxPlayer.zip" 2>/dev/null
+        echo "downloading universal version"
+        curl -L "https://setup.rbxcdn.com/mac/version-b43017492eb44083-RobloxPlayer.zip" -o "$tmp/RobloxPlayer.zip" 2>/dev/null >/dev/null
+        echo "download done"
         echo
         ok "Completed"
     fi
 
     if [ -f "$tmp/RobloxPlayer.zip" ]; then
+        echo "zip file exists"
         echo
         step "Installing Roblox..."
+        echo "unzipping file"
         unzip -o -q "$tmp/RobloxPlayer.zip" 2>/dev/null
+        echo "nzip done"
         if [ -d "./RobloxPlayer.app" ]; then
+            echo "found roblox moving to applications"
             mv "./RobloxPlayer.app" "/Applications/Roblox.app" 2>/dev/null
+            echo "move done"
         else
+            echo "no roblox app found uhhh"
             echo -e " ${CYAN}✘${RESET}"
             err "Failed to extract Roblox"
         fi
         rm -f "$tmp/RobloxPlayer.zip"
-        echo
+        echo "zip file removed"
+    else
+        echo "zip file not found"
     fi
 
     ok "Completed"
