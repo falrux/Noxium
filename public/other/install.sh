@@ -96,43 +96,32 @@ installroblox() {
     ok "Completed"
     echo
 
-    echo -ne "${DARK_PURPLE}Downloading Roblox...${RESET}"
-    curl -L "https://setup.rbxcdn.com/mac/version-b43017492eb44083-Roblox.dmg" -o "$tmp/RobloxPlayer.dmg" 2>/dev/null
-    echo
+    arch=$(uname -m)
+    
+    if [ "$arch" == "arm64" ]; then
+        step "Downloading Roblox..."
+        curl -L "https://setup.rbxcdn.com/mac/arm64/version-b43017492eb44083-RobloxPlayer.zip" -o "$tmp/RobloxPlayer.zip" 2>/dev/null
+        echo
+        ok "Completed"
+    else
+        step "Downloading Roblox..."
+        curl -L "https://setup.rbxcdn.com/mac/version-b43017492eb44083-RobloxPlayer.zip" -o "$tmp/RobloxPlayer.zip" 2>/dev/null
+        echo
+        ok "Completed"
+    fi
 
-    ok "Completed"
-    echo
-
-    if [ -f "$tmp/RobloxPlayer.dmg" ]; then
-        mount_point=$(hdiutil attach "$tmp/RobloxPlayer.dmg" | grep "/Volumes" | awk '{print $3}')
-        if [ -n "$mount_point" ]; then
-            installer_app=$(find "$mount_point" -name "*Installer*.app" -type d | head -n 1)
-            if [ -n "$installer_app" ]; then
-                open "$installer_app" 2>/dev/null
-                
-                echo -ne "${DARK_PURPLE}Installing Roblox..."
-                while [ ! -d "/Applications/Roblox.app" ]; do
-                    sleep 2
-                    echo -ne "."
-                done
-                echo
-                
-                pkill -f "Roblox" 2>/dev/null
-                sleep 2
-            else
-                open "$mount_point" 2>/dev/null
-                
-                echo -ne "${DARK_PURPLE}Installing Roblox..."
-                while [ ! -d "/Applications/Roblox.app" ]; do
-                    sleep 2
-                    echo -ne "."
-                done
-                echo
-
-                pkill -f "Roblox" 2>/dev/null
-                sleep 2
-            fi
+    if [ -f "$tmp/RobloxPlayer.zip" ]; then
+        echo
+        step "Installing Roblox..."
+        unzip -o -q "$tmp/RobloxPlayer.zip" 2>/dev/null
+        if [ -d "./RobloxPlayer.app" ]; then
+            mv "./RobloxPlayer.app" "/Applications/Roblox.app" 2>/dev/null
+        else
+            echo -e " ${CYAN}✘${RESET}"
+            err "Failed to extract Roblox"
         fi
+        rm -f "$tmp/RobloxPlayer.zip"
+        echo
     fi
 
     ok "Completed"
