@@ -8,7 +8,7 @@
 </div>
 
 > [!IMPORTANT]  
-> This repo **ONLY** contains the websites source code (UseNoxium.xyz). None of it contains the actual source of Noxium.
+> This repo **ONLY** contains the websites source code (UseNoxium.xyz). None of it contains the actual src of Noxium.
 
 
 ## Install Script
