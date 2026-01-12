@@ -104,12 +104,12 @@ installroblox() {
     
     if [ "$arch" == "arm64" ]; then
         step "Downloading Roblox..."
-        curl -L "https://setup.rbxcdn.com/mac/arm64/version-b43017492eb44083-RobloxPlayer.zip" -o "$tmp/RobloxPlayer.zip" 2>/dev/null >/dev/null
+        curl -L "https://setup.rbxcdn.com/mac/arm64/version-d0722e371e604117-RobloxPlayer.zip" -o "$tmp/RobloxPlayer.zip" 2>/dev/null >/dev/null
         echo
         ok "Completed"
     else
         step "Downloading Roblox..."
-        curl -L "https://setup.rbxcdn.com/mac/version-b43017492eb44083-RobloxPlayer.zip" -o "$tmp/RobloxPlayer.zip" 2>/dev/null >/dev/null
+        curl -L "https://setup.rbxcdn.com/mac/version-d0722e371e604117-RobloxPlayer.zip" -o "$tmp/RobloxPlayer.zip" 2>/dev/null >/dev/null
         echo
         echo "you're on intel so uhhh, expect issues..."
         echo
