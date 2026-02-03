@@ -261,6 +261,3 @@ ok "UseNoxium.xyz"
 echo -e "${BOLD}${DARK_PURPLE}  Noxium MacOS Install Script Made By: @needrose${RESET}"
 echo -e "${BOLD}${DARK_PURPLE}  Noxium MacOS Made By: @falrux/unknowingly_exists${RESET}"
 echo
-
-open "/Applications/Roblox.app" 2>/dev/null >/dev/null &
-open "/Applications/Noxium.app" 2>/dev/null >/dev/null &
