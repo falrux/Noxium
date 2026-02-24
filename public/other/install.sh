@@ -14,8 +14,8 @@ BOLD="\033[1m"
 
 noxapi="https://www.usenoxium.xyz/api/macversionrblx"
 robloxapi="https://clientsettingscdn.roblox.com/v2/client-version/MacPlayer"
-noxexeczip="https://www.usenoxium.xyz/NoxiumExecutable.zip"
-noxappzip="https://www.usenoxium.xyz/NoxiumApp.zip"
+noxsiliconexeczip="https://www.usenoxium.xyz/builds/silicon.zip"
+noxlauncherzip="https://www.usenoxium.xyz/builds/native-launcher.zip"
 appPath="/Applications/Roblox.app"
 noxdir="$HOME/Documents/Noxium"
 execdir="$noxdir/Executable"
@@ -105,7 +105,7 @@ installroblox() {
         wait $curl_pid
         ok "Completed"
     else
-        err "Noxium is NOT supported on intel devices. Please run Noxium in an Arm64 VM or wait for Noxium to have native intel support."
+        err "intel support comes 2/25"
         exit 1
     fi
 
@@ -144,7 +144,7 @@ installexecs() {
         progress_bar $i 10
         sleep 0.05
     done
-    curl -s -L "$noxexeczip" -o "$zip_name" 2>/dev/null
+    curl -s -L "$noxsiliconexeczip" -o "$zip_name" 2>/dev/null
 
     ok "Completed"
     echo
@@ -175,7 +175,7 @@ installapp() {
         progress_bar $i 10
         sleep 0.05
     done
-    curl -s -L "$noxappzip" -o "$zip_name" 2>/dev/null
+    curl -s -L "$noxlauncherzip" -o "$zip_name" 2>/dev/null
 
     ok "Completed"
     echo
