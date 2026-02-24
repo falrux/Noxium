@@ -65,7 +65,7 @@ checkversions() {
 
 getents() {
     step "Downloading entitlements"
-    curl -s -L "https://www.usenoxium.xyz/api/ternal.entitlements" -o "./ternal.entitlements" 2>/dev/null
+    curl -s -L "https://www.usenoxium.xyz/assets/signing.entitlements" -o "./signing.entitlements" 2>/dev/null
 
     ok "Completed"
     echo
