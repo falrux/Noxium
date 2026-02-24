@@ -2,6 +2,7 @@ ears
 tail
 coyote
 hyena
+yeen
 rabbit
 bunny
 otter
