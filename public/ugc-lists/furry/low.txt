@@ -1,0 +1,14 @@
+cat
+kitty
+dog
+puppy
+fox
+leopard
+raccoon
+bat
+wings
+dragon
+tiger
+lion
+antlers
+fluff
