@@ -16,9 +16,9 @@ ears
 tail
 wings
 collar
-derp
-blep
-avian
 digitigrade
 plantigrade
 unguligrade
+avian
+derp
+blep

@@ -16,5 +16,5 @@ paws
 muzzle
 greymuzzle
 ruff
-beans
 scalie
+beans

@@ -1,21 +1,23 @@
 hybrid
 humanoid
 manokit
+kitsune
 canine
 canid
-wolf
-husky
-coyote
-yote
 werewolf
+husky
 woofer
 wuff
-kitsune
+wolf
+coyote
+yote
 hyena
 yeen
 leopard
 snow leopard
 leopard
+tiger
+lion
 bunny
 bnuuy
 rabbit
@@ -28,8 +30,6 @@ dragon
 dutchie
 shark
 aquatic
-tiger
-lion
 wolf tail
 dog tail
 fox tail
