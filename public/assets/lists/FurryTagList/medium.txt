@@ -1,44 +1,41 @@
-hybrid
-humanoid
-manokit
+smiling critters
+hyena
+yeen
+leopard
+snow leopard
+cat tail
+bunny tail
+rabbit tail
 kitsune
+werewolf
+fox tail
+wolf tail
+dog tail
+tail
+feral
+antlers
+cangaroo
+lion
+bat
+tiger
+hybrid
+otter
 canine
 canid
-werewolf
 husky
 woofer
 wuff
 wolf
 coyote
 yote
-hyena
-yeen
-leopard
-snow leopard
-leopard
-tiger
-lion
-bunny
-bnuuy
-rabbit
-roo
-cangaroo
-otter
 raccoon
-bat
-dragon
-dutchie
-shark
-aquatic
-wolf tail
-dog tail
-fox tail
-cat tail
-bunny tail
-rabbit tail
+anthropomorphic
 fur
 floof
 fluff
-feral
-beast
-:3
+dragon
+shark
+aquatic
+bunny
+bnuuy
+rabbit
