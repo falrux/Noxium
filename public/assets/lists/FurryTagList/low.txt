@@ -10,6 +10,7 @@ raccoon
 bat
 snake
 snek
+slug
 goat
 collar
 ears

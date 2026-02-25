@@ -3,14 +3,25 @@ hyena
 yeen
 leopard
 snow leopard
+dog ears
+cat ears
+fox ears
+cat collar
+wolf ears
 cat tail
+synth mask
 bunny tail
 rabbit tail
+dog collar
+puppy collar
+mane
 kitsune
 werewolf
+skull dog
 fox tail
 wolf tail
 dog tail
+fluffy tail
 tail
 feral
 antlers
@@ -26,10 +37,12 @@ husky
 woofer
 wuff
 wolf
+wolfy
 coyote
 yote
 raccoon
 anthropomorphic
+digi visor
 fur
 floof
 fluff
@@ -39,3 +52,4 @@ aquatic
 bunny
 bnuuy
 rabbit
+moth
