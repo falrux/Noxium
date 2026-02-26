@@ -8,6 +8,40 @@ AOS.init({
 
 feather.replace();
 
+const sparklesContainer = document.getElementById('sparkles');
+for (let i = 0; i < 500; i++) {
+    const sparkle = document.createElement('span');
+    sparkle.className = 'sparkle';
+    sparkle.style.left = Math.random() * 100 + '%';
+    sparkle.style.top = Math.random() * 200 + 'vh';
+    sparkle.style.animationDelay = Math.random() * 3 + 's';
+    const opacity = 0.5 + Math.random() * 0.4;
+    const size = 5 + Math.random() * 3;
+    sparkle.style.opacity = opacity;
+    sparkle.style.width = size + 'px';
+    sparkle.style.height = size + 'px';
+    sparkle.style.setProperty('--rot', Math.random() * 360 + 'deg');
+    sparkle.style.setProperty('--base-op', opacity);
+    sparklesContainer.appendChild(sparkle);
+}
+
+const imageSparklesContainer = document.getElementById('image-sparkles');
+for (let i = 0; i < 500; i++) {
+    const sparkle = document.createElement('span');
+    sparkle.className = 'sparkle';
+    sparkle.style.left = Math.random() * 100 + '%';
+    sparkle.style.top = Math.random() * 200 + 'vh';
+    sparkle.style.animationDelay = Math.random() * 3 + 's';
+    const opacity = 0.5 + Math.random() * 0.4;
+    const size = 5 + Math.random() * 3;
+    sparkle.style.opacity = opacity;
+    sparkle.style.width = size + 'px';
+    sparkle.style.height = size + 'px';
+    sparkle.style.setProperty('--rot', Math.random() * 360 + 'deg');
+    sparkle.style.setProperty('--base-op', opacity);
+    imageSparklesContainer.appendChild(sparkle);
+}
+
 const mainContent = document.getElementById('main-content');
 mainContent.style.transform = 'translateY(60px)';
 mainContent.style.opacity = '0';
@@ -18,9 +52,16 @@ function smoothScrollEffects() {
     const title = document.getElementById('main-title');
     const bgLogo = document.getElementById('background-logo');
 
-    const parallaxSpeed = 0.5;
+    const parallaxSpeed = 1.8;
     bgLogo.style.transform = `translateY(${scrollY * parallaxSpeed}px) scale(${1 + scrollY * 0.0002})`;
-    bgLogo.style.opacity = Math.max(0.05, 0.2 - scrollY * 0.0002);
+
+    const bgImage = document.getElementById('background-image');
+    bgImage.style.transform = `translateY(${scrollY * parallaxSpeed}px) scale(${1 + scrollY * 0.0002})`;
+    bgImage.style.opacity = Math.max(0.25, 0.25 - scrollY * 0.00005);
+
+    imageSparklesContainer.style.transform = `translateY(${scrollY * parallaxSpeed}px) scale(${1 + scrollY * 0.0002})`;
+
+    sparklesContainer.style.transform = `translateY(${scrollY * 0.2}px)`;
 
     const headerScale = Math.max(0.5, 1 - scrollY * 0.002);
     header.style.transform = `scale(${headerScale}) translateY(${scrollY * 0.15}px)`;
@@ -74,16 +115,25 @@ function typeWriter(element, text, speed = 100) {
 
     function next() {
         if (index < text.length) {
+
+            let delay = speed;
+
+            if (index === 3) {
+                delay = 350;
+            }
+
             element.innerHTML += text.charAt(index);
             index++;
-            setTimeout(next, speed);
+
+            setTimeout(next, delay);
         }
     }
-    next();
+
+    setTimeout(next, 400);
 }
 
 setTimeout(() => {
-    typeWriter(document.getElementById('main-title'), 'Noxium', 150);
+    typeWriter(document.getElementById('main-title'), 'NOXIUM', 88);
 }, 500);
 
 const floatCard = document.getElementById('floating-card');

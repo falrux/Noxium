@@ -19,9 +19,19 @@ body {
     100% { text-shadow: 0 0 20px rgba(255, 255, 255, 1); }
 }
 
+.feature-card {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+}
+
 .feature-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 0 25px rgba(200, 100, 255, 0.5);
+    transform: translateY(-15px) scale(1.05);
+    box-shadow: 0 0 30px rgba(200, 100, 255, 0.7), 0 0 60px rgba(255, 255, 255, 0.1);
 }
 
 .download-btn {
@@ -66,4 +76,36 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(45deg, #d9b7ff, #ffffff, #d9b7ff);
+}
+
+.sparkle {
+    position: absolute;
+    animation: twinkle 3s infinite ease-in-out;
+    transform: rotate(var(--rot, 0deg)) scale(1);
+}
+
+.sparkle::before,
+.sparkle::after {
+    content: '';
+    position: absolute;
+    background: #581c87;
+}
+
+.sparkle::before {
+    width: 100%;
+    height: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.sparkle::after {
+    height: 100%;
+    width: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: var(--base-op, 0.4); transform: rotate(var(--rot, 0deg)) scale(1); }
+    50% { opacity: 0; transform: rotate(var(--rot, 0deg)) scale(2); }
 }
