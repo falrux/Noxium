@@ -15,3 +15,5 @@ paws
 ruff
 dogday
 catnap
+pawbert
+furry cutout

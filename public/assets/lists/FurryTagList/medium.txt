@@ -12,6 +12,7 @@ cat tail
 synth mask
 bunny tail
 rabbit tail
+sergal
 dog collar
 puppy collar
 mane
@@ -25,7 +26,7 @@ fluffy tail
 tail
 feral
 antlers
-cangaroo
+kangaroo
 lion
 bat
 tiger
@@ -44,6 +45,7 @@ raccoon
 anthropomorphic
 digi visor
 fur
+tuft
 floof
 fluff
 dragon

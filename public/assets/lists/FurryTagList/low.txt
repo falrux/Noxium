@@ -1,5 +1,6 @@
 dog
 puppy
+snout
 cat
 feline
 kitty
@@ -15,5 +16,7 @@ goat
 collar
 ears
 wings
+claws
+whiskers
 humanoid
 beans
