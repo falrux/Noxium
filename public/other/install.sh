@@ -15,15 +15,17 @@ BOLD="\033[1m"
 noxapi="https://www.usenoxium.xyz/api/macversionrblx"
 robloxapi="https://clientsettingscdn.roblox.com/v2/client-version/MacPlayer"
 noxsiliconexeczip="https://www.usenoxium.xyz/builds/silicon.zip"
+noxintelexeczip="https://www.usenoxium.xyz/builds/intel.zip"
 noxlauncherzip="https://www.usenoxium.xyz/builds/native-launcher.zip"
-appPath="/Applications/Roblox.app"
+siliconappPath="/Applications/Roblox.app"
+intelappPath="/Applications/RobloxPlayer.app"
 noxdir="$HOME/Documents/Noxium"
 execdir="$noxdir/Executable"
 workdir="$noxdir/Workspace"
 confdir="$noxdir/Config"
 tmp="/tmp"
 
-if [ -z "$appPath" ] || [ -z "$noxdir" ] || [ -z "$execdir" ]; then
+if [ -z "$siliconappPath" ] || [ -z "$noxdir" ] || [ -z "$execdir" ]; then
     echo "Error"
     exit 1
 fi
@@ -105,8 +107,16 @@ installroblox() {
         wait $curl_pid
         ok "Completed"
     else
-        err "intel support comes 2/25"
-        exit 1
+        step "Downloading Roblox..."
+        curl -L "https://setup.rbxcdn.com/mac/${ro_version}-RobloxPlayer.zip" -o "$tmp/RobloxPlayer.zip" 2>/dev/null >/dev/null &
+        curl_pid=$!
+        for i in {1..9}; do
+            progress_bar $i 10
+            sleep 0.1
+        done
+        progress_bar 10 10
+        wait $curl_pid
+        ok "Completed"
     fi
 
     if [ -f "$tmp/RobloxPlayer.zip" ]; then
@@ -144,7 +154,13 @@ installexecs() {
         progress_bar $i 10
         sleep 0.05
     done
-    curl -s -L "$noxsiliconexeczip" -o "$zip_name" 2>/dev/null
+    
+    arch=$(uname -m)
+    if [ "$arch" == "arm64" ]; then
+        curl -s -L "$noxsiliconexeczip" -o "$zip_name" 2>/dev/null
+    else
+        curl -s -L "$noxintelexeczip" -o "$zip_name" 2>/dev/null
+    fi
 
     ok "Completed"
     echo
@@ -203,12 +219,12 @@ signroblox() {
 
     arch=$(uname -m)
 
-    if [ "$arch" == "arm64" ] && [ -n "$appPath" ] && [ -e "$appPath" ]; then
-        codesign --remove-signature "$appPath" 2>/dev/null
+    if [ "$arch" == "arm64" ] && [ -n "$siliconappPath" ] && [ -e "$siliconappPath" ]; then
+        codesign --remove-signature "$siliconappPath" 2>/dev/null
     fi
 
-    if [ -n "$appPath" ] && [ -e "$appPath" ] && [ -f "./ternal.entitlements" ]; then
-        codesign --force --deep --entitlements "./ternal.entitlements" -s - "$appPath" 2>/dev/null
+    if [ -n "$siliconappPath" ] && [ -e "$siliconappPath" ] && [ -f "./ternal.entitlements" ]; then
+        codesign --force --deep --entitlements "./ternal.entitlements" -s - "$siliconappPath" 2>/dev/null
     fi
 
     ok "Completed"
