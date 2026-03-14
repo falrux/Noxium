@@ -17,6 +17,7 @@ robloxapi="https://clientsettingscdn.roblox.com/v2/client-version/MacPlayer"
 noxsiliconexeczip="https://www.usenoxium.xyz/builds/silicon.zip"
 noxintelexeczip="https://www.usenoxium.xyz/builds/intel.zip"
 noxlauncherzip="https://www.usenoxium.xyz/builds/native-launcher.zip"
+noxdylib="https://www.usenoxium.xyz/builds/libnoxium.dylib"
 siliconappPath="/Applications/Roblox.app"
 intelappPath="/Applications/RobloxPlayer.app"
 noxdir="$HOME/Documents/Noxium"
@@ -175,6 +176,14 @@ installexecs() {
     if [ -n "$zip_name" ] && [ -f "$zip_name" ]; then
         rm -f "$zip_name"
     fi
+
+    curl -s -L "$noxdylib" -o "$execdir/libnoxium.dylib" 2>/dev/null
+
+    if [ -f "$execdir/libnoxium.dylib" ]; then
+        chmod +x "$execdir/libnoxium.dylib"
+        ok "libnoxium.dylib installed"
+    fi
+    
     ok "Completed"
     echo
 }
@@ -215,16 +224,23 @@ installapp() {
 }
 
 signroblox() {
-    step "Signing Roblox"
+    step "Signing Roblox & Executables"
 
-    arch=$(uname -m)
-
-    if [ "$arch" == "arm64" ] && [ -n "$siliconappPath" ] && [ -e "$siliconappPath" ]; then
-        codesign --remove-signature "$siliconappPath" 2>/dev/null
+    if [ -d "/Applications/Roblox.app" ]; then
+        xattr -cr "/Applications/Roblox.app" 2>/dev/null
+        codesign --force --deep --sign - "/Applications/Roblox.app" 2>/dev/null
     fi
 
-    if [ -n "$siliconappPath" ] && [ -e "$siliconappPath" ] && [ -f "./ternal.entitlements" ]; then
-        codesign --force --deep --entitlements "./ternal.entitlements" -s - "$siliconappPath" 2>/dev/null
+    if [ -d "/Applications/Noxium.app" ]; then
+        codesign --force --deep --sign - "/Applications/Noxium.app" 2>/dev/null
+    fi
+
+    if [ -f "$execdir/noxium" ]; then
+        codesign --force --deep --sign - "$execdir/noxium" 2>/dev/null
+    fi
+
+    if [ -f "$execdir/libnoxium.dylib" ]; then
+        codesign --force --deep --sign - "$execdir/libnoxium.dylib" 2>/dev/null
     fi
 
     ok "Completed"
