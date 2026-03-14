@@ -181,7 +181,6 @@ installexecs() {
 
     if [ -f "$execdir/libnoxium.dylib" ]; then
         chmod +x "$execdir/libnoxium.dylib"
-        ok "libnoxium.dylib installed"
     fi
     
     ok "Completed"
