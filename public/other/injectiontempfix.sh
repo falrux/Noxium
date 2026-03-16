@@ -19,7 +19,7 @@ fi
 killall RobloxPlayer 2>/dev/null
 
 
-echo "making sure shi is codesigned correctlyyyy"
+echo "password is required for codesigning"
 sudo codesign --remove-signature "$ROBLOX_APP"
 sudo codesign --force --deep --sign - "$ROBLOX_APP"
 
