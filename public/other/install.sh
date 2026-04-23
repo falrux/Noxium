@@ -37,17 +37,20 @@ err() { echo -e "${BOLD}${CYAN}✘ $1${RESET}"; }
 
 
 progress_bar() {
-    local current=$1
-    local total=$2
+    local total=$1
+    local current=$2
     local width=40
+
+    [ "$total" -eq 0 ] && total=1
+
     local percentage=$((current * 100 / total))
     local filled=$((current * width / total))
     local empty=$((width - filled))
-    if [ "$current" -eq "$total" ]; then
-        printf "\r${BOLD}${DARK_PURPLE}[%s%s] ${PINK}%d%%${RESET}\n" "$(printf "%.0s#" $(seq 1 $filled))" "$(printf "%.0s." $(seq 1 $empty))" "$percentage"
-    else
-        printf "\r${BOLD}${DARK_PURPLE}[%s%s] ${PINK}%d%%${RESET}" "$(printf "%.0s#" $(seq 1 $filled))" "$(printf "%.0s." $(seq 1 $empty))" "$percentage"
-    fi
+
+    printf "\r${BOLD}${DARK_PURPLE}[%s%s] ${PINK}%3d%%${RESET}" \
+        "$(printf "%.0s#" $(seq 1 $filled))" \
+        "$(printf "%.0s." $(seq 1 $empty))" \
+        "$percentage"
 }
 
 checkversions() {
@@ -90,34 +93,40 @@ installroblox() {
     echo
 
     arch=$(uname -m)
-    
+
     if [ ! -d "$tmp" ]; then
         mkdir -p "$tmp"
     fi
-    
+
+    step "Downloading Roblox..."
+
     if [ "$arch" == "arm64" ]; then
-        step "Downloading Roblox..."
-        curl -L "https://setup.rbxcdn.com/mac/arm64/${ro_version}-RobloxPlayer.zip" -o "$tmp/RobloxPlayer.zip" 2>/dev/null >/dev/null &
-        curl_pid=$!
-        for i in {1..9}; do
-            progress_bar $i 10
-            sleep 0.1
-        done
-        progress_bar 10 10
-        wait $curl_pid
-        ok "Completed"
+        url="https://setup.rbxcdn.com/mac/arm64/${ro_version}-RobloxPlayer.zip"
     else
-        step "Downloading Roblox..."
-        curl -L "https://setup.rbxcdn.com/mac/${ro_version}-RobloxPlayer.zip" -o "$tmp/RobloxPlayer.zip" 2>/dev/null >/dev/null &
-        curl_pid=$!
-        for i in {1..9}; do
-            progress_bar $i 10
-            sleep 0.1
-        done
-        progress_bar 10 10
-        wait $curl_pid
-        ok "Completed"
+        url="https://setup.rbxcdn.com/mac/${ro_version}-RobloxPlayer.zip"
     fi
+
+    out="$tmp/RobloxPlayer.zip"
+
+    total=$(curl -sI "$url" | grep -i Content-Length | awk '{print $2}' | tr -d '\r')
+    [ -z "$total" ] && total=1
+    
+    curl -fL "$url" -o "$out" &
+    pid=$!
+    
+    while kill -0 $pid 2>/dev/null; do
+        if [ -f "$out" ]; then
+            current=$(stat -f%z "$out" 2>/dev/null || echo 0)
+            progress_bar "$total" "$current"
+        fi
+        sleep 0.1
+    done
+
+    wait $pid
+    progress_bar "$total" "$total"
+    echo
+
+    ok "Completed"
 
     if [ -f "$tmp/RobloxPlayer.zip" ]; then
         echo
