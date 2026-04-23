@@ -154,12 +154,12 @@ installexecs() {
         progress_bar $i 10
         sleep 0.05
     done
-    
+
     arch=$(uname -m)
-    if [ "$arch" == "arm64" ]; then
-        curl -s -L "$noxsiliconexeczip" -o "$zip_name" 2>/dev/null
+    if [ "$arch" = "arm64" ]; then
+        curl -fL "$noxsiliconexeczip" -o "$zip_name" || { err "failed to download"; exit 1; }
     else
-        curl -s -L "$noxintelexeczip" -o "$zip_name" 2>/dev/null
+        curl -fL "$noxintelexeczip" -o "$zip_name" || { err "failed to download"; exit 1; }
     fi
 
     ok "Completed"
@@ -167,15 +167,15 @@ installexecs() {
 
     step "Extracting executables"
 
-    unzip -o -q "$zip_name" -d "$execdir" 2>/dev/null
+    unzip -o "$zip_name" -d "$execdir" || {
+        err "failed to unzip"
+        exit 1
+    }
 
-    if [ -n "$execdir" ] && [ -d "$execdir" ]; then
-        find "$execdir" -type f ! -name "*.zip" -exec chmod +x {} \; 2>/dev/null
-    fi
-    if [ -n "$zip_name" ] && [ -f "$zip_name" ]; then
-        rm -f "$zip_name"
-    fi
-    
+    find "$execdir" -type f ! -name "*.zip" -exec chmod +x {} \;
+
+    rm -f "$zip_name"
+
     ok "Completed"
     echo
 }
