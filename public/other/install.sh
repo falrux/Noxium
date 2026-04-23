@@ -172,7 +172,7 @@ installexecs() {
 
     step "Extracting executables"
 
-    unzip -o "$zip_name" -d "$execdir" || {
+    unzip -o -q "$zip_name" -d "$execdir" || {
         err "failed to unzip"
         exit 1
     }
