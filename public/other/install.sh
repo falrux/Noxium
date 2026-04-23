@@ -17,7 +17,6 @@ robloxapi="https://clientsettingscdn.roblox.com/v2/client-version/MacPlayer"
 noxsiliconexeczip="https://www.usenoxium.xyz/builds/silicon.zip"
 noxintelexeczip="https://www.usenoxium.xyz/builds/intel.zip"
 noxlauncherzip="https://www.usenoxium.xyz/builds/native-launcher.zip"
-noxdylib="https://www.usenoxium.xyz/builds/libnoxium.dylib"
 siliconappPath="/Applications/Roblox.app"
 intelappPath="/Applications/RobloxPlayer.app"
 noxdir="$HOME/Documents/Noxium"
@@ -175,12 +174,6 @@ installexecs() {
     fi
     if [ -n "$zip_name" ] && [ -f "$zip_name" ]; then
         rm -f "$zip_name"
-    fi
-
-    curl -s -L "$noxdylib" -o "$execdir/libnoxium.dylib" 2>/dev/null
-
-    if [ -f "$execdir/libnoxium.dylib" ]; then
-        chmod +x "$execdir/libnoxium.dylib"
     fi
     
     ok "Completed"
