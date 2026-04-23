@@ -111,7 +111,7 @@ installroblox() {
     total=$(curl -sI "$url" | grep -i Content-Length | awk '{print $2}' | tr -d '\r')
     [ -z "$total" ] && total=1
     
-    curl -fL "$url" -o "$out" &
+    curl -fsSL "$url" -o "$out" >/dev/null 2>&1 &
     pid=$!
     
     while kill -0 $pid 2>/dev/null; do
@@ -159,10 +159,7 @@ installexecs() {
     fi
 
     zip_name="$execdir/noxium.zip"
-    for i in {1..10}; do
-        progress_bar $i 10
-        sleep 0.05
-    done
+    progress_bar $i 10
 
     arch=$(uname -m)
     if [ "$arch" = "arm64" ]; then
@@ -197,10 +194,7 @@ installapp() {
     fi
 
     zip_name="./Noxium.zip"
-    for i in {1..10}; do
-        progress_bar $i 10
-        sleep 0.05
-    done
+    progress_bar $i 10
     curl -s -L "$noxlauncherzip" -o "$zip_name" 2>/dev/null
 
     ok "Completed"
