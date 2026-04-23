@@ -193,7 +193,24 @@ installapp() {
     fi
 
     zip_name="./Noxium.zip"
-    curl -fsSL "$noxlauncherzip" -o "$zip_name" >/dev/null 2>&1
+
+    total=$(curl -sI "$noxlauncherzip" | grep -i Content-Length | awk '{print $2}' | tr -d '\r')
+    [ -z "$total" ] && total=1
+
+    curl -fsSL "$noxlauncherzip" -o "$zip_name" >/dev/null 2>&1 &
+    pid=$!
+
+    while kill -0 $pid 2>/dev/null; do
+        if [ -f "$zip_name" ]; then
+            current=$(stat -f%z "$zip_name" 2>/dev/null || echo 0)
+            progress_bar "$total" "$current"
+        fi
+        sleep 0.1
+    done
+
+    wait $pid
+    progress_bar "$total" "$total"
+    echo
 
     ok "Completed"
     echo
