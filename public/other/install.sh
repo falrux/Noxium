@@ -159,13 +159,12 @@ installexecs() {
     fi
 
     zip_name="$execdir/noxium.zip"
-    progress_bar $i 10
 
     arch=$(uname -m)
     if [ "$arch" = "arm64" ]; then
-        curl -fL "$noxsiliconexeczip" -o "$zip_name" || { err "failed to download"; exit 1; }
+        curl -fsSL "$noxsiliconexeczip" -o "$zip_name" >/dev/null 2>&1 || { err "failed to download"; exit 1; }
     else
-        curl -fL "$noxintelexeczip" -o "$zip_name" || { err "failed to download"; exit 1; }
+        curl -fsSL "$noxintelexeczip" -o "$zip_name" >/dev/null 2>&1 || { err "failed to download"; exit 1; }
     fi
 
     ok "Completed"
@@ -194,8 +193,7 @@ installapp() {
     fi
 
     zip_name="./Noxium.zip"
-    progress_bar $i 10
-    curl -s -L "$noxlauncherzip" -o "$zip_name" 2>/dev/null
+    curl -fsSL "$noxlauncherzip" -o "$zip_name" >/dev/null 2>&1
 
     ok "Completed"
     echo
