@@ -223,6 +223,11 @@ signroblox() {
         codesign --force --deep --sign - "/Applications/Roblox.app" 2>/dev/null
     fi
 
+    if [ -d "/Applications/RobloxPlayer.app" ]; then
+        xattr -cr "/Applications/RobloxPlayer.app" 2>/dev/null
+        codesign --force --deep --sign - "/Applications/RobloxPlayer.app" 2>/dev/null
+    fi
+
     if [ -d "/Applications/Noxium.app" ]; then
         codesign --force --deep --sign - "/Applications/Noxium.app" 2>/dev/null
     fi
@@ -231,18 +236,14 @@ signroblox() {
         codesign --force --deep --sign - "$execdir/noxium" 2>/dev/null
     fi
 
-    if [ -f "$execdir/libnoxium.dylib" ]; then
-        codesign --force --deep --sign - "$execdir/libnoxium.dylib" 2>/dev/null
-    fi
-
     ok "Completed"
     echo
 }
 
 cleanup() {
     step "Cleaning up..."
-    if [ -f "./ternal.entitlements" ]; then
-        rm -f "./ternal.entitlements" 2>/dev/null
+    if [ -f "./signing.entitlements" ]; then
+        rm -f "./signing.entitlements" 2>/dev/null
     fi
     ok "Completed"
     echo
