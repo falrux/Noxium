@@ -4,7 +4,6 @@
 
 siliconappPath="/Applications/Roblox.app"
 intelappPath="/Applications/RobloxPlayer.app"
-noxdylib="$HOME/Documents/Noxium/Executable/libnoxium.dylib"
 noxtmp="/private/tmp/noxium"
 
 # dtc arch
@@ -37,8 +36,6 @@ killall RobloxPlayer 2>/dev/null
 echo "recodesigning..."
 sudo codesign --remove-signature "$ROBLOX_APP"
 sudo codesign --force --deep --sign - "$ROBLOX_APP"
-
-codesign --force --deep --sign - "$noxdylib"
 
 # bye bai
 echo "ok open noxium and it should work now"
