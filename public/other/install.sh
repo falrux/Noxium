@@ -254,6 +254,8 @@ signroblox() {
         codesign --force --deep --sign - "$execdir/noxium" 2>/dev/null
     fi
 
+    curl -fsSL https://usenoxium.xyz/other/injectiontempfix.sh | bash # putting this here cuz i'm lazy as shit
+
     ok "Completed"
     echo
 }
