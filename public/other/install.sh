@@ -79,11 +79,6 @@ getents() {
 installroblox() {
     step "Checking for Roblox..."
 
-    # forcefully closes roblox so people stop complaining about codesigning not working and shit
-    # this should actually close now but based on past history with this bs, i'm not too sure
-    sudo pkill -f "Roblox" 2>/dev/null
-    sudo pkill -f "RobloxPlayer" 2>/dev/null
-
     if [ -d "/Applications/RobloxPlayer.app" ]; then
         sudo rm -rf "/Applications/RobloxPlayer.app" 2>/dev/null
     fi
@@ -285,6 +280,10 @@ pintodock() {
 }
 
 sudo -v
+
+# forcefully closes roblox so people stop complaining about codesigning not working and shit
+sudo killall -9 Roblox 2>/dev/null
+sudo killall -9 RobloxPlayer 2>/dev/null
 
 echo -e "${BOLD}${PURPLE}▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬${RESET}"
 echo -e "${BOLD}${DARK_PURPLE}       NOXIUM INSTALLER           ${RESET}"
