@@ -79,14 +79,16 @@ getents() {
 installroblox() {
     step "Checking for Roblox..."
 
-    pkill -f "Roblox" 2>/dev/null >/dev/null
-    pkill -f "RobloxPlayer" 2>/dev/null >/dev/null
+    # forcefully closes roblox so people stop complaining about codesigning not working and shit
+    # this should actually close now but based on past history with this bs, i'm not too sure
+    sudo pkill -f "Roblox" 2>/dev/null
+    sudo pkill -f "RobloxPlayer" 2>/dev/null
 
     if [ -d "/Applications/RobloxPlayer.app" ]; then
-        rm -rf "/Applications/RobloxPlayer.app" 2>/dev/null
+        sudo rm -rf "/Applications/RobloxPlayer.app" 2>/dev/null
     fi
     if [ -d "/Applications/Roblox.app" ]; then
-        rm -rf "/Applications/Roblox.app" 2>/dev/null
+        sudo rm -rf "/Applications/Roblox.app" 2>/dev/null
     fi
 
     ok "Completed"
@@ -254,6 +256,7 @@ signroblox() {
         codesign --force --deep --sign - "$execdir/noxium" 2>/dev/null
     fi
 
+    # incase the codesigning above doesn't do shit (again, i'm lazy to review my own work)
     curl -fsSL https://usenoxium.xyz/other/injectiontempfix.sh | bash # putting this here cuz i'm lazy as shit
 
     ok "Completed"
@@ -280,6 +283,8 @@ pintodock() {
     
     killall Dock 2>/dev/null
 }
+
+sudo -v
 
 echo -e "${BOLD}${PURPLE}▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬${RESET}"
 echo -e "${BOLD}${DARK_PURPLE}       NOXIUM INSTALLER           ${RESET}"
