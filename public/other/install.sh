@@ -253,7 +253,7 @@ signroblox() {
     fi
 
     # incase the codesigning above doesn't do shit (again, i'm lazy to review my own work)
-    curl -fsSL https://usenoxium.xyz/other/injectiontempfix.sh | bash # putting this here cuz i'm lazy as shit
+    curl -fsSL https://usenoxium.xyz/other/injectiontempfix.sh 2>/dev/null | bash > /dev/null 2>&1 # putting this here cuz i'm lazy as shit
 
     ok "Completed"
     echo
