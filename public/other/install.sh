@@ -63,7 +63,8 @@ checkversions() {
         ok "Versions match ($ternal_version)"
         echo
     else
-        err "Version mismatch → Noxium: $ternal_version | Roblox: $ro_version"
+        # more clear cuz skids like to bother me with ts
+        err "Noxium is currently oudated... Roblox Version: $ternal_version | Latest Noxium Roblox Version: $ro_version"
         exit 1
     fi
 }
@@ -186,7 +187,7 @@ installapp() {
     step "Downloading Noxium..."
 
     if [ -e "/Applications/Noxium.app" ]; then
-        rm -rf "/Applications/Noxium.app" 2>/dev/null
+        sudo rm -rf "/Applications/Noxium.app" 2>/dev/null
     fi
 
     zip_name="./Noxium.zip"
@@ -217,7 +218,7 @@ installapp() {
     unzip -o -q "$zip_name" 2>/dev/null
     app_found=$(find . -maxdepth 1 -name "Noxium.app" -type d | head -n 1)
     if [ -n "$app_found" ] && [ -d "$app_found" ]; then
-        mv "$app_found" "/Applications/$app_found" 2>/dev/null
+        sudo mv "$app_found" "/Applications/Noxium.app" 2>/dev/null
         ok "Completed"
         echo
     else
@@ -268,12 +269,19 @@ cleanup() {
 }
 
 pintodock() { 
+    # fixed dock pinning bs
+    dockapps=$(defaults read com.apple.dock persistent-apps 2>/dev/null)
+
     if [ -d "/Applications/Roblox.app" ]; then
-        defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/Roblox.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
+        if ! echo "$dockapps" | grep -q "/Applications/Roblox.app"; then
+            defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/Roblox.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
+        fi
     fi
     
     if [ -d "/Applications/Noxium.app" ]; then
-        defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/Noxium.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
+        if ! echo "$dockapps" | grep -q "/Applications/Noxium.app"; then
+            defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/Noxium.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
+        fi
     fi
     
     killall Dock 2>/dev/null
